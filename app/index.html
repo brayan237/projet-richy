@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CamBus Express - Accueil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body data-page="index">
+  <div id="siteHeader"></div>
+  <main>
+    <!-- Hero animé -->
+    <section class="wrap hero">
+      <div>
+        <span class="badge up" style="--d:1"><i data-lucide="zap"></i> Réservation instantanée</span>
+        <h1 class="up" style="--d:2">Voyagez à travers le Cameroun en <span class="grad">première classe</span></h1>
+        <p class="sub up" style="--d:3">Réservez votre billet de bus interurbain en quelques secondes et recevez un e-billet avec code de vérification, prêt à présenter à l'embarquement.</p>
+        <div class="cta up" style="--d:4">
+          <a class="btn btn-p" href="reserver.html"><i data-lucide="ticket"></i> Réserver un billet</a>
+          <a class="btn btn-g" href="reservations.html"><i data-lucide="list-checks"></i> Mes Réservations</a>
+        </div>
+        <div class="mini up" style="--d:5">
+          <span><i data-lucide="shield-check"></i> Billet sécurisé</span>
+          <span><i data-lucide="wifi"></i> Wi-Fi à bord (VIP)</span>
+          <span><i data-lucide="snowflake"></i> Climatisation</span>
+        </div>
+      </div>
+
+      <!-- Carte animée des trajets -->
+      <div class="mapcard up" style="--d:3">
+        <svg class="map" viewBox="0 0 480 420" role="img" aria-label="Carte des trajets Douala, Yaoundé, Bafoussam et Kribi">
+          <defs>
+            <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#10B981"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+            <filter id="gl" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <path id="r1" d="M120 200Q250 260 390 230"/>
+            <path id="r2" d="M390 230Q380 110 260 70"/>
+            <path id="r3" d="M120 200Q130 100 260 70"/>
+            <path id="r4" d="M120 200Q95 290 170 350"/>
+          </defs>
+          <g fill="none" stroke-linecap="round">
+            <g stroke="rgba(255,255,255,.1)" stroke-width="2"><use href="#r1"/><use href="#r2"/><use href="#r3"/><use href="#r4"/></g>
+            <g stroke="url(#lg)" stroke-width="3" filter="url(#gl)" class="flow"><use href="#r1"/><use href="#r2"/><use href="#r3"/><use href="#r4"/></g>
+          </g>
+          <g fill="#fff" filter="url(#gl)">
+            <circle r="5"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#r1"/></animateMotion></circle>
+            <circle r="5"><animateMotion dur="6s" begin="1s" repeatCount="indefinite"><mpath href="#r2"/></animateMotion></circle>
+            <circle r="5"><animateMotion dur="4.5s" begin="2s" repeatCount="indefinite"><mpath href="#r3"/></animateMotion></circle>
+            <circle r="5"><animateMotion dur="3.5s" begin=".5s" repeatCount="indefinite"><mpath href="#r4"/></animateMotion></circle>
+          </g>
+          <g transform="translate(120 200)"><circle class="pr" r="8"/><circle r="8" fill="#10B981"/><text x="-12" y="32" text-anchor="middle">Douala</text></g>
+          <g transform="translate(390 230)"><circle class="pr" r="8" style="animation-delay:.5s"/><circle r="8" fill="#3B82F6"/><text x="0" y="32" text-anchor="middle">Yaoundé</text></g>
+          <g transform="translate(260 70)"><circle class="pr" r="8" style="animation-delay:1s"/><circle r="8" fill="#F59E0B"/><text x="0" y="-18" text-anchor="middle">Bafoussam</text></g>
+          <g transform="translate(170 350)"><circle class="pr" r="8" style="animation-delay:1.5s"/><circle r="8" fill="#A78BFA"/><text x="0" y="32" text-anchor="middle">Kribi</text></g>
+        </svg>
+        <div class="fchip fc1"><i data-lucide="wifi"></i> Wi-Fi à bord</div>
+        <div class="fchip fc2"><i data-lucide="crown"></i> Classe VIP</div>
+      </div>
+    </section>
+
+    <!-- Trajets populaires -->
+    <section class="wrap sec" id="trajets">
+      <div class="sec-h rv"><span class="badge"><i data-lucide="map-pin"></i> Destinations</span><h2>Nos Trajets Populaires</h2><p>Choisissez votre itinéraire et réservez en un clic.</p></div>
+      <div class="grid4" id="routesGrid"></div>
+    </section>
+
+    <!-- Tableau de bord temps réel -->
+    <section class="wrap sec">
+      <div class="sec-h rv"><span class="badge"><i data-lucide="activity"></i> En direct</span><h2>Tableau de Bord en Temps Réel</h2><p>Les chiffres clés de la plateforme, mis à jour depuis l'API.</p></div>
+      <div id="dashSkel" class="kpis"><div class="sk sk-card"></div><div class="sk sk-card"></div><div class="sk sk-card"></div></div>
+      <div id="dashBody" hidden>
+        <div class="kpis">
+          <div class="card kpi tilt"><div class="k-ic"><i data-lucide="ticket"></i></div><div><div class="k-n" id="kpiReservations">0</div><div class="k-l">Total Réservations</div></div></div>
+          <div class="card kpi tilt"><div class="k-ic"><i data-lucide="users"></i></div><div><div class="k-n" id="kpiPassagers">0</div><div class="k-l">Total Passagers</div></div></div>
+          <div class="card kpi tilt"><div class="k-ic"><i data-lucide="banknote"></i></div><div><div class="k-n"><span id="kpiRevenu">0</span><small>FCFA</small></div><div class="k-l">Revenu Total</div></div></div>
+        </div>
+        <div class="card">
+          <div class="chart-head"><h3><i data-lucide="chart-pie"></i> Répartition par trajet</h3>
+            <div class="seg"><button class="on" data-m="count">Réservations</button><button data-m="rev">Revenus</button></div></div>
+          <div class="chart-box"><canvas id="trajetsChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="siteFooter"></div>
+  <script src="app.js"></script>
+</body>
+</html>

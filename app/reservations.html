@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CamBus Express - Mes Réservations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="reservations">
+  <div id="siteHeader"></div>
+  <main>
+    <section class="wrap page-h up">
+      <span class="badge"><i data-lucide="list-checks"></i> <span id="compteurResultats">Chargement...</span></span>
+      <h1>Mes <span class="grad">Réservations</span></h1>
+      <p class="sub">Filtrez par trajet (côté serveur) ou recherchez un passager, un téléphone ou un billet.</p>
+    </section>
+
+    <section class="wrap">
+      <div class="card toolbar up" style="--d:2">
+        <div class="ic sel"><i data-lucide="route"></i>
+          <select class="inp" id="filtreTrajet">
+            <option value="TOUS">Tous les trajets</option>
+            <option value="Douala - Yaoundé">Douala - Yaoundé</option>
+            <option value="Yaoundé - Bafoussam">Yaoundé - Bafoussam</option>
+            <option value="Douala - Bafoussam">Douala - Bafoussam</option>
+            <option value="Douala - Kribi">Douala - Kribi</option>
+          </select></div>
+        <div class="ic"><i data-lucide="search"></i><input class="inp" type="search" id="rechercheClient" placeholder="Nom, téléphone ou BUS-..."></div>
+        <button class="btn btn-g" type="button" id="btnRefresh"><i data-lucide="refresh-cw"></i> Actualiser</button>
+      </div>
+      <div class="rgrid" id="zoneResa"></div>
+    </section>
+  </main>
+  <div id="siteFooter"></div>
+  <script src="app.js"></script>
+</body>
+</html>

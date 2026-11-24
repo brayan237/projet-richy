@@ -1,0 +1,40 @@
+services:
+  web-app-richy:
+    build: ./app
+    container_name: app-richy
+    ports:
+      - "81:80"
+    restart: always
+
+  nginx-exporter-richy:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: nginx-exporter-richy
+    command:
+      - "--nginx.scrape-uri=http://app-richy/stub_status"
+    depends_on:
+      - web-app-richy
+    restart: always
+
+  prometheus-richy:
+    image: prom/prometheus:latest
+    container_name: prometheus-richy
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9091:9090"
+    restart: always
+
+  grafana-richy:
+    image: grafana/grafana:latest
+    container_name: grafana-richy
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data_richy:/var/lib/grafana
+    restart: always
+
+volumes:
+  grafana_data_richy:
